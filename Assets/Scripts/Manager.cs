@@ -8,9 +8,9 @@ public class Manager : MonoBehaviour
 {
     public static Manager Instance;
 
-    public string userName;
+    public TMP_InputField inputField;
 
-    MenuUIHandler menuUIHandler;
+    public string userName;
 
     public int bestScore;
 
@@ -27,8 +27,7 @@ public class Manager : MonoBehaviour
 
     public void SaveUsername() 
     {
-        userName = menuUIHandler.inputField.text;
-        Debug.Log("Username Log:");
+        userName = inputField.text;
         Debug.Log(userName);
     }
 }

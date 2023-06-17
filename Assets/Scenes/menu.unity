@@ -1443,9 +1443,9 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2121683146}
-        m_TargetAssemblyTypeName: MenuUIHandler, Assembly-CSharp
-        m_MethodName: InputButton
+      - m_Target: {fileID: 2121683148}
+        m_TargetAssemblyTypeName: Manager, Assembly-CSharp
+        m_MethodName: SaveUsername
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1559,7 +1559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8905ec69a649f84a98fbde75817eab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputField: {fileID: 2037093945}
 --- !u!4 &2121683147
 Transform:
   m_ObjectHideFlags: 0
@@ -1586,5 +1585,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fe5d725f36fac343a02fd91ea92633f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userName: {fileID: 0}
+  inputField: {fileID: 2037093945}
+  userName: 
   bestScore: 0

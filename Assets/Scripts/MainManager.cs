@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -11,7 +12,8 @@ public class MainManager : MonoBehaviour
     public Rigidbody Ball;
 
     public Text ScoreText;
-    public Text ScoreText1;
+    public Text NameText;
+    public Text BestScoreText;
     public GameObject GameOverText;
     
     private bool m_Started = false;
@@ -73,13 +75,14 @@ public class MainManager : MonoBehaviour
     public void GameOver()
     {
         SetHighestScore();
+        SaveScore();
         m_GameOver = true;
         GameOverText.SetActive(true);
     }
 
     public void SetUserName() 
     {
-        ScoreText1.text = $"Name : {Manager.Instance.userName}";
+        NameText.text = $"Name : {Manager.Instance.userName}";
     }
 
     public void SetHighestScore() 
@@ -87,11 +90,47 @@ public class MainManager : MonoBehaviour
         if (m_Points > Manager.Instance.bestScore)
         {
             Manager.Instance.bestScore = m_Points;
-            ScoreText1.text = $" Highest Score : {Manager.Instance.bestScore}";
+            BestScoreText.text = $" Highest Score : {Manager.Instance.bestScore}";
         }
+        else
+        {
+            BestScoreText.text = $" Highest Score : {Manager.Instance.bestScore}";
+        }
+        
     }
     private void Awake()
     {
         SetUserName();
+        LoadScore();
+        SetHighestScore();
+        
+        
+    }
+
+    [System.Serializable]
+    class SaveData
+    {
+        public int highestScore;
+    }
+    public void SaveScore() 
+    {
+        SaveData saveData = new SaveData();
+        saveData.highestScore = Manager.Instance.bestScore;
+
+        string json =  JsonUtility.ToJson(saveData);
+
+        File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+    }
+    public void LoadScore() 
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            SaveData saveData = JsonUtility.FromJson<SaveData>(json);
+
+            Manager.Instance.bestScore = saveData.highestScore;
+        }
     }
 }
